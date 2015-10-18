@@ -15,8 +15,10 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
-.idea/
+node_modules/
+App/index.js
+App/index.js.map
 
 # Ignoring App folder for
 # ease of implementation
-App
+# App

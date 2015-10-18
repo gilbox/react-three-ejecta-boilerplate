@@ -1,0 +1,46 @@
+{
+  "name": "react-three-ejecta-boilerplate",
+  "version": "1.0.0",
+  "description": "react-three ejecta demo",
+  "main": "src",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "build-prod": "NODE_ENV=production webpack -p",
+    "build-prod-watch": "NODE_ENV=production webpack --watch -p",
+    "build-web": "webpack --config webpack.config.web.js",
+    "build-web-prod": "NODE_ENV=production webpack --config webpack.config.web.js -p",
+    "watch-web": "webpack --config webpack.config.web.js --watch",
+    "build-gh-pages": "npm run build-web-prod && rm -rf ../react-three-ejecta-boilerplate-gh-pages/* && cp -rf web/* ../react-three-ejecta-boilerplate-gh-pages/ && npm run build-gh-pages-push",
+    "build-gh-pages-push": "(cd ../react-three-ejecta-boilerplate-gh-pages/ && git add . && git commit -am 'build' && git push)",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gilbox/react-three-ejecta-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gilbox/react-three-ejecta-boilerplate/issues"
+  },
+  "homepage": "https://github.com/gilbox/react-three-ejecta-boilerplate#readme",
+  "dependencies": {
+    "elegant-react": "^0.2.2",
+    "functional-easing": "^1.0.8",
+    "lodash": "^3.10.1",
+    "react": "^0.14.0",
+    "react-derive": "^0.1.1",
+    "react-dom": "^0.14.0",
+    "react-imation": "^0.2.8",
+    "react-stateful-stream": "^0.2.2",
+    "react-three": "*",
+    "three": "^0.72.0",
+    "updeep": "^0.10.1"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "webpack": "^1.12.2"
+  }
+}
