@@ -88,7 +88,6 @@ const angleZKeyframes = { 0:0, 105: 25 };
 
 const flakeHasId = id => flake => flake.id === id;
 const concat = newItem => items => items.concat(newItem);
-const lengthIsLessThan = length => items => items.length < length;
 const increment = x => x + 1;
 const decrement = x => x - 1;
 
@@ -98,16 +97,42 @@ const decrement = x => x - 1;
       droppedCount: 0,
       gameIsOver: false,
       score: 0
-    }),
-  edit => ({
-    addFlake: newFlake => edit(u({flakes: u.if(lengthIsLessThan(21),concat(newFlake)),
-                            droppedCount: increment })),
-    removeFlake: flakeId => edit(u({flakes: u.reject(flakeHasId(flakeId)) })),
-    explodeFlake: index => edit(u({flakes: { [index]: { explode: true } } })),
-    playAgain: () => edit(u({gameIsOver: false, score: 0, flakes: [], droppedCount: 0})),
-    gameOver: () => edit(u({gameIsOver: true})),
-    addToScore: amount => edit(u({score: x => x + ~~amount })),
-  }))
+    })
+  , edit => ({
+      addFlake: newFlake =>
+        edit(u.if(
+          ({flakes}) => flakes.length < 15
+        , {
+            flakes: concat(newFlake),
+            droppedCount: increment
+          }
+        )),
+
+      removeFlake: flakeId => edit(u({
+        flakes: u.reject(flakeHasId(flakeId))
+      })),
+
+      explodeFlake: index => edit(u({
+        flakes: {
+          [index]: { explode: true }
+        }
+      })),
+
+      playAgain: () => edit(u({
+        gameIsOver: false,
+        score: 0,
+        flakes: [],
+        droppedCount: 0
+      })),
+
+      gameOver: () => edit(u({
+        gameIsOver: true
+      })),
+
+      addToScore: amount => edit(u({
+        score: x => x + ~~amount
+      })),
+    }))
 class App extends Component {
   constructor(props) {
     super(props)
