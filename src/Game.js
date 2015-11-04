@@ -41,8 +41,8 @@ const selectDroppedCount = ({droppedCount}) => droppedCount;
 const ___ = function() {};
 
 const selectEdit =
-  ({addFlake, gameOver, tickFlakes, removeFlake}) =>
-  ({addFlake, gameOver, tickFlakes, removeFlake});
+  ({addFlake, gameOver, removeFlake}) =>
+  ({addFlake, gameOver, removeFlake});
 
 const selectTickFlakes = ({tickFlakes}) => ({tickFlakes});
 
@@ -96,7 +96,7 @@ export default class Game extends Component {
           {flakes =>
             <Object3D>
 
-              {flakes.map(({id, x, scale, increment, materialIndex, tick}, index) =>
+              {flakes.map(({id, x, scale, increment, materialIndex, tick}) =>
                 <Object3D
                   key={id}
                   position={new THREE.Vector3(x, tween(tick, boundsKeyframes), 0)}>
