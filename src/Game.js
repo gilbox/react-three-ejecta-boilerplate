@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import THREE from 'three';
 import { Object3D, PerspectiveCamera, Scene, Mesh } from 'react-three';
 import { tween, combine } from 'react-imation';
@@ -52,6 +52,14 @@ const FlakeTicker = provide(___, selectTickFlakes)(
 
 @provide(___, selectEdit)
 export default class Game extends Component {
+  static propTypes = {
+    refScene: PropTypes.func,
+  }
+
+  static defaultProps = {
+    refScene: function(){},
+  }
+
   componentDidMount() {
     // The <Scene />'s `pointerEvents` prop doesn't work with Ejecta,
     // so we need to attach events directly to `document`.
@@ -76,7 +84,10 @@ export default class Game extends Component {
         <FlakeTicker />
 
         <Scene {...{width,height,canvas}}
-          ref={scene => this.scene = scene}
+          ref={scene => {
+            this.scene = scene;
+            this.props.refScene(scene);
+          }}
           camera="maincamera">
 
           <PerspectiveCamera name="maincamera" {...cameraProps} />

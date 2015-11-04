@@ -68,4 +68,6 @@ const selectEdit = edit => ({
 
 const options = { provider: true };
 
-export default stateful(initialState, selectEdit, options);
+export default _initialState => DecoratedComponent => _initialState ?
+  stateful(_initialState, selectEdit, options)(DecoratedComponent) :
+  stateful( initialState, selectEdit, options)(DecoratedComponent);
