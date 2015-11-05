@@ -5,8 +5,7 @@ import { tween, combine } from 'react-imation';
 import { provide, Provide } from 'react-stateful-stream/provide';
 import { playRandomPfSound } from './sounds';
 import { flakeMaterials } from './materials';
-import { AnimationFrame } from './animationFrame';
-import Interval from './Interval';
+import { AnimationFrame } from 'react-imation/animationFrame';
 import AddFlakesRandomly from './AddFlakesRandomly';
 
 const { requestAnimationFrame: raf,

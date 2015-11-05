@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { provide } from 'react-stateful-stream/provide';
 import { Object3D } from 'react-three';
-import Interval from './Interval';
+import Interval from 'react-imation/Interval';
 import createFlake from './createFlake';
 
 const MAX_DROPPED = 300;
