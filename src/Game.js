@@ -26,8 +26,8 @@ const cameraProps =
 const geometry = new THREE.PlaneBufferGeometry( 15, 15, 1 );
 const bounds = 1.2*height;
 const boundsKeyframes = { 0: bounds,
-                       105: -bounds };
-const angleZKeyframes = { 0:0, 105: 25 };
+                        100: -bounds };
+const angleZKeyframes = { 0:0, 100: 25 };
 
 const zaxis = new THREE.Vector3( 0, 0, 1 );
 const angleZ = angle => {
@@ -83,6 +83,7 @@ export default class Game extends Component {
         <FlakeTicker />
 
         <Scene {...{width,height,canvas}}
+          transparent={true}
           ref={scene => {
             this.scene = scene;
             this.props.refScene(scene);
@@ -95,10 +96,11 @@ export default class Game extends Component {
           {flakes =>
             <Object3D>
 
-              {flakes.map(({id, x, scale, increment, materialIndex, tick}) =>
+              {flakes.map(({id, scale, increment, materialIndex, tick, quaternionXY, driftKeyframes}) =>
                 <Object3D
                   key={id}
-                  position={new THREE.Vector3(x, tween(tick, boundsKeyframes), 0)}>
+                  quaternion={quaternionXY}
+                  position={new THREE.Vector3(tween(tick, driftKeyframes), tween(tick, boundsKeyframes), 0)}>
                   <Mesh
                     geometry={geometry}
                     material={flakeMaterials[materialIndex]}

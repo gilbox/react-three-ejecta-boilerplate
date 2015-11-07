@@ -43,7 +43,7 @@ const selectEdit = edit => ({
 
   tickFlakes: () => edit(u({
     flakes: compose(
-      u.reject(flake => flake.tick > 105)
+      u.reject(flake => flake.tick > 100)
     , u.map(
         flake => u({tick: x => x + flake.increment}, flake)
       )
