@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:3420',
     'webpack/hot/dev-server',
@@ -14,8 +14,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
