@@ -23,7 +23,7 @@ const angleZ = angle => {
 
 const quarterScaleKeyframes = {
   0: 0.5,
-  60: 0,
+  60: 0.01, // scaling to 0 triggers can't invert matrix warning
 };
 
 export default function Flake({

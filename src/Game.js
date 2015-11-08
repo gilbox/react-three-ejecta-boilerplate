@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import THREE, { Vector3 } from 'three';
+import { Vector3 } from 'three';
 import { Object3D, PerspectiveCamera, Scene } from 'react-three';
 import { tween } from 'react-imation';
 import { provide, Provide } from 'react-stateful-stream/provide';
@@ -17,8 +17,8 @@ const cameraProps =
     aspect:aspectRatio,
     near:1,
     far:5000,
-    position:new THREE.Vector3(0,0,600),
-    lookat:new THREE.Vector3(0,0,0) };
+    position:new Vector3(0,0,600),
+    lookat:new Vector3(0,0,0) };
 
 const bounds = 1.2*height;
 const boundsKeyframes = { 0: bounds,

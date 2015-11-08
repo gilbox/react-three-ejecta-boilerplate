@@ -10,8 +10,8 @@
     "build-prod-watch": "NODE_ENV=production webpack --watch -p",
     "build-web": "webpack --config webpack.config.web.js",
     "build-web-prod": "NODE_ENV=production webpack --config webpack.config.web.js -p",
+    "start": "node server.js",
     "hot-web": "node hot-server.js",
-    "watch-web": "webpack --config webpack.config.web.js --watch",
     "build-gh-pages": "npm run build-web-prod && rm -rf ../react-three-ejecta-boilerplate-gh-pages/* && cp -rf web/* ../react-three-ejecta-boilerplate-gh-pages/ && npm run build-gh-pages-push",
     "build-gh-pages-push": "(cd ../react-three-ejecta-boilerplate-gh-pages/ && git add . && git commit -am 'build' && git push)",
     "test": "echo \"Error: no test specified\" && exit 1"
