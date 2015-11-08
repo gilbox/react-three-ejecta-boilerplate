@@ -28,6 +28,7 @@
   "homepage": "https://github.com/gilbox/react-three-ejecta-boilerplate#readme",
   "dependencies": {
     "elegant-react": "^0.2.2",
+    "es6-shim": "^0.33.10",
     "functional-easing": "^1.0.8",
     "lodash.compose": "^2.4.1",
     "react": "^0.14.0",
@@ -35,7 +36,7 @@
     "react-dom": "^0.14.0",
     "react-imation": "^0.2.8",
     "react-stateful-stream": "^0.3.0",
-    "react-three": "^0.7.1",
+    "react-three": "0.7.1",
     "three": "^0.72.0",
     "updeep": "^0.10.1"
   },

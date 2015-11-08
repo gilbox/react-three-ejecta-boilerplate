@@ -1,3 +1,4 @@
+import 'es6-shim';
 import './react-three-ejecta';
 import React from 'react';
 import ReactTHREE from 'react-three';
