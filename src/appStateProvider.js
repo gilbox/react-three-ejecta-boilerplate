@@ -8,7 +8,7 @@ const flakeHasId = id => flake => flake.id === id;
 const concat = newItem => items => items.concat(newItem);
 const increment = x => x + 1;
 
-const initialState = immutable({
+const defaultInitialState = immutable({
   flakes: [],
   droppedCount: 0,
   gameIsOver: false,
@@ -43,9 +43,14 @@ const selectEdit = edit => ({
 
   tickFlakes: () => edit(u({
     flakes: compose(
-      u.reject(flake => flake.tick > 100)
+      u.reject(flake =>
+        flake.tick > 100 ||
+        flake.explodingTick > 60)
     , u.map(
-        flake => u({tick: x => x + flake.increment}, flake)
+        flake => u({
+          tick: x => x + flake.increment,
+          explodingTick: u.if(flake.explode, increment),
+        }, flake)
       )
     )
   })),
@@ -68,6 +73,6 @@ const selectEdit = edit => ({
 
 const options = { provider: true };
 
-export default _initialState => DecoratedComponent => _initialState ?
-  stateful(_initialState, selectEdit, options)(DecoratedComponent) :
-  stateful( initialState, selectEdit, options)(DecoratedComponent);
+export default initialState => DecoratedComponent => initialState ?
+  stateful(initialState, selectEdit, options)(DecoratedComponent) :
+  stateful(defaultInitialState, selectEdit, options)(DecoratedComponent);

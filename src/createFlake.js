@@ -13,16 +13,12 @@ export default function createFlake(id, x) {
 
   return ({
     id,
-    cacheKey:id,
-    // x,
     tick: 0,
+    explodingTick: 0,
     materialIndex: ~~(flakeMaterials.length * Math.random()),
     scale: 2 + (Math.random() * 3),
-    rotationSpeed: Math.random() * 90 - 20,
-    rotateX: ~~(Math.random()*1),
-    rotateY: ~~(Math.random()*.7),
+    // rotationSpeed: Math.random() * 90 - 20,
     quaternionXY,
-    // left: ~~(Math.random() * 100) + '%',
     driftKeyframes: {
       0: x,
       100: x + ~~(Math.random() * 40) - 15 },

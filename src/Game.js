@@ -1,19 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import THREE from 'three';
-import { Object3D, PerspectiveCamera, Scene, Mesh } from 'react-three';
-import { tween, combine } from 'react-imation';
+import THREE, { Vector3 } from 'three';
+import { Object3D, PerspectiveCamera, Scene } from 'react-three';
+import { tween } from 'react-imation';
 import { provide, Provide } from 'react-stateful-stream/provide';
-import { playRandomPfSound } from './sounds';
-import { flakeMaterials } from './materials';
 import { AnimationFrame } from 'react-imation/animationFrame';
+import { playRandomPfSound } from './sounds';
 import AddFlakesRandomly from './AddFlakesRandomly';
+import Flake from './Flake';
 
-const { requestAnimationFrame: raf,
-        innerWidth: width,
+const { innerWidth: width,
         innerHeight: height } = window;
 
-const halfHeight = height/2;
-const offset = -height/2;
 const aspectRatio = width / height;
 const cameraProps =
   { fov:75,
@@ -23,25 +20,16 @@ const cameraProps =
     position:new THREE.Vector3(0,0,600),
     lookat:new THREE.Vector3(0,0,0) };
 
-const geometry = new THREE.PlaneBufferGeometry( 15, 15, 1 );
 const bounds = 1.2*height;
 const boundsKeyframes = { 0: bounds,
                         100: -bounds };
-const angleZKeyframes = { 0:0, 100: 25 };
-
-const zaxis = new THREE.Vector3( 0, 0, 1 );
-const angleZ = angle => {
-  const quaternion = new THREE.Quaternion();
-  return quaternion.setFromAxisAngle(zaxis, angle );
-}
 
 const selectFlakes = ({flakes}) => flakes;
-const selectDroppedCount = ({droppedCount}) => droppedCount;
 const ___ = function() {};
 
 const selectEdit =
-  ({addFlake, gameOver, removeFlake}) =>
-  ({addFlake, gameOver, removeFlake});
+  ({gameOver, explodeFlake}) =>
+  ({gameOver, explodeFlake});
 
 const selectTickFlakes = ({tickFlakes}) => ({tickFlakes});
 
@@ -71,7 +59,7 @@ export default class Game extends Component {
   }
 
   render() {
-    const { removeFlake, canvas, addFlake, gameOver } = this.props;
+    const { explodeFlake, canvas } = this.props;
 
     return (
       <div> {/* <~~ div is never rendered, it is used as a container for
@@ -96,20 +84,27 @@ export default class Game extends Component {
           {flakes =>
             <Object3D>
 
-              {flakes.map(({id, scale, increment, materialIndex, tick, quaternionXY, driftKeyframes}) =>
-                <Object3D
-                  key={id}
-                  quaternion={quaternionXY}
-                  position={new THREE.Vector3(tween(tick, driftKeyframes), tween(tick, boundsKeyframes), 0)}>
-                  <Mesh
-                    geometry={geometry}
-                    material={flakeMaterials[materialIndex]}
-                    onSlash3D={event => {
+              {flakes.map((flake,index) =>
+                <Flake
+                  key={flake.id}
+                  explodingTick={flake.explodingTick}
+                  onSlash3D={event => {
+                    if (!flake.explode) {
                       playRandomPfSound();
-                      removeFlake(id)}}
-                    scale={scale}
-                    quaternion={angleZ(tween(tick, angleZKeyframes))} />
-                </Object3D>)}
+                      explodeFlake(index);
+                    }
+                  }}
+                  materialIndex={flake.materialIndex}
+                  spinningTick={flake.tick}
+                  quaternion={flake.quaternionXY}
+                  scale={flake.scale}
+                  position={
+                    new Vector3(
+                      tween(flake.tick, flake.driftKeyframes),
+                      tween(flake.tick, boundsKeyframes),
+                      0
+                    )}
+                />)}
 
             </Object3D>
           }</Provide>

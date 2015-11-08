@@ -1,6 +1,5 @@
-import THREE from 'three';
 import './react-three-ejecta';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactTHREE from 'react-three';
 import Game from './Game';
 import appStateProvider from './appStateProvider';
