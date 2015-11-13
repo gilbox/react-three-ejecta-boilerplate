@@ -14,6 +14,7 @@ export default function createFlake(id, x) {
   return ({
     id,
     tick: 0,
+    spinningTick: 0,
     explodingTick: 0,
     materialIndex: ~~(flakeMaterials.length * Math.random()),
     scale: 2 + (Math.random() * 3),

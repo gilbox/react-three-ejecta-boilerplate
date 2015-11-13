@@ -95,7 +95,7 @@ export default class Game extends Component {
                     }
                   }}
                   materialIndex={flake.materialIndex}
-                  spinningTick={flake.tick}
+                  spinningTick={flake.spinningTick}
                   quaternion={flake.quaternionXY}
                   scale={flake.scale}
                   position={

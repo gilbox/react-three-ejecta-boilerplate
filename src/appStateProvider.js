@@ -6,7 +6,14 @@ const immutable = u({});
 
 const flakeHasId = id => flake => flake.id === id;
 const concat = newItem => items => items.concat(newItem);
-const increment = x => x + 1;
+const incrementByOne = x => x + 1;
+
+// when the flake is exploding, spinning slows down
+const spinningTickIncrementer = ({explode, increment, explodingTick}) =>
+  x => x + (explode ? increment * ((60-explodingTick) / 60) : increment);
+
+const tickIncrementer = ({explode, increment}) =>
+  x => x + increment;
 
 const defaultInitialState = immutable({
   flakes: [],
@@ -26,7 +33,7 @@ const selectEdit = edit => ({
       ({flakes}) => flakes.length < 15
     , {
         flakes: concat(newFlake),
-        droppedCount: increment
+        droppedCount: incrementByOne
       }
     ))
   },
@@ -48,8 +55,9 @@ const selectEdit = edit => ({
         flake.explodingTick > 60)
     , u.map(
         flake => u({
-          tick: x => x + flake.increment,
-          explodingTick: u.if(flake.explode, increment),
+          tick: tickIncrementer(flake),
+          spinningTick: spinningTickIncrementer(flake),
+          explodingTick: u.if(flake.explode, incrementByOne),
         }, flake)
       )
     )
